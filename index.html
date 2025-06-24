@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Modern Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #dce35b, #45b649);
+    }
+
+    .main_container {
+      background: #1e1e1e;
+      padding: 25px;
+      border-radius: 20px;
+      width: 300px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    #screen {
+      width: 100%;
+      height: 60px;
+      font-size: 28px;
+      text-align: right;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      background-color: #333;
+      color: #fff;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+    }
+
+    button {
+      width: 65px;
+      height: 55px;
+      font-size: 20px;
+      border: none;
+      border-radius: 12px;
+      background-color: #2e2e2e;
+      color: white;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px #1a1a1a;
+    }
+
+    button:hover {
+      background-color: #3e3e3e;
+    }
+
+    button:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px #1a1a1a;
+    }
+
+    /* Style for function buttons */
+    .function {
+      background-color: #ff9500;
+    }
+
+    .function:hover {
+      background-color: #e58e00;
+    }
+
+    .clear {
+      background-color: #ff3b30;
+    }
+
+    .clear:hover {
+      background-color: #e02e25;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main_container">
+    <input type="text" id="screen" placeholder="0" readonly>
+
+    <div class="button-row">
+      <button class="clear" onclick="deleteall()">AC</button>
+      <button onclick="mio()">DEL</button>
+      <button onclick="prt()">%</button>
+      <button class="function" onclick="appendToScreen('/')">÷</button>
+    </div>
+
+    <div class="button-row">
+      <button onclick="appendToScreen('7')">7</button>
+      <button onclick="appendToScreen('8')">8</button>
+      <button onclick="appendToScreen('9')">9</button>
+      <button class="function" onclick="appendToScreen('*')">×</button>
+    </div>
+
+    <div class="button-row">
+      <button onclick="appendToScreen('4')">4</button>
+      <button onclick="appendToScreen('5')">5</button>
+      <button onclick="appendToScreen('6')">6</button>
+      <button class="function" onclick="appendToScreen('-')">−</button>
+    </div>
+
+    <div class="button-row">
+      <button onclick="appendToScreen('1')">1</button>
+      <button onclick="appendToScreen('2')">2</button>
+      <button onclick="appendToScreen('3')">3</button>
+      <button class="function" onclick="appendToScreen('+')">+</button>
+    </div>
+
+    <div class="button-row">
+      <button onclick="appendToScreen('0')">0</button>
+      <button onclick="appendToScreen('.')">.</button>
+      <button onclick="calr()">=</button>
+    </div>
+  </div>
+
+  <script>
+    const screen = document.getElementById('screen');
+
+    function appendToScreen(value){
+      if(screen.value === '0' || screen.value === ""){
+        screen.value = value;
+      } else {
+        screen.value += value;
+      }
+    }
+
+    function deleteall(){
+      screen.value = "";
+    }
+
+    function mio(){
+      screen.value = screen.value.slice(0, -1);
+    }
+
+    function prt(){
+      try {
+        const num = eval(screen.value); // First evaluate full expression
+        screen.value = num / 100;
+      } catch {
+        screen.value = 'Error';
+      }
+    }
+
+    function calr(){
+      try {
+        screen.value = eval(screen.value);
+      } catch {
+        screen.value = "Error";
+      }
+    }
+  </script>
+
+</body>
+</html>
